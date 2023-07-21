@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Col, Image, Row, Form, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import {auth} from "../firebase"
+import {auth, storage} from "../firebase"
 import { AuthContext } from "../components/AuthProvider";
 import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "@firebase/auth";
 import axios from "axios";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export default function AuthPage() {
     // Possible values: null (no modal shows), "Login", "SignUp"
@@ -12,6 +13,7 @@ export default function AuthPage() {
     const handleShowSignUp = () => setModalShow("SignUp");
     const handleShowLogin = () => setModalShow("Login");
     const handleResetPassword = () => setModalShow("Reset");
+    const [imageUrl, setImageUrl] = useState("");
 
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -28,7 +30,15 @@ export default function AuthPage() {
         if (currentUser){
             navigate("/booking");
         }
+        handleAuthImage();
     },[currentUser, navigate])
+    
+
+    const handleAuthImage = async() => {
+        let imageRef = ref(storage, `services/auth_picture.png`);
+        let imageURL = await getDownloadURL(imageRef);
+        setImageUrl(imageURL)
+    }
     
 
     //Reset password
@@ -124,7 +134,7 @@ export default function AuthPage() {
     return (
         <Row>
             <Col sm={6}>
-                <Image src="../../auth_picture.png" fluid/>
+                <Image src={imageUrl} fluid/>
             </Col>
             <Col sm={6} className="p-4">
                 <i className="bi bi-scissors" style={{fontSize: 50, color: "black"}}></i>
