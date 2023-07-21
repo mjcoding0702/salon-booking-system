@@ -128,8 +128,8 @@ export default function AuthPage() {
             </Col>
             <Col sm={6} className="p-4">
                 <i className="bi bi-scissors" style={{fontSize: 50, color: "black"}}></i>
-                <p className="mt-5" style={{fontSize: 64}}>Happening Now</p>
-                <h2 className="my-5" style={{fontSize: 31}}>Join Twitter Today.</h2>
+                <p className="mt-5" style={{fontSize: 64}}>Hair Salon </p>
+                <h2 className="my-5" style={{fontSize: 31}}>Book Your Appointment Today.</h2>
                 <Col sm={5} className="d-grid gap-2">
                     <Button className="rounded-pill" variant="outline-dark" onClick={handleGoogleLogin}>
                         <i className="bi bi-google"></i> Sign up with Google
